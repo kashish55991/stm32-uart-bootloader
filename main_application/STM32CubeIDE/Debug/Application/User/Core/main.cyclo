@@ -1,3 +1,7 @@
-C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:65:5:main	1
-C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:110:6:SystemClock_Config	4
-C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:163:6:Error_Handler	1
+../../Drivers/CMSIS/Include/core_cm4.h:1933:34:__NVIC_SystemReset	1
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:83:5:main	1
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:132:6:SystemClock_Config	4
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:180:6:HAL_UART_RxCpltCallback	6
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:199:6:handle_at_command	6
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:237:6:HAL_Delay	3
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/main_application/Core/Src/main.c:259:6:Error_Handler	1

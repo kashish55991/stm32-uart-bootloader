@@ -53,6 +53,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 stage2_bootloader.list \
 
+OBJCOPY_HEX += \
+stage2_bootloader.hex \
+
+OBJCOPY_BIN += \
+stage2_bootloader.bin \
+
 
 # All Target
 all: main-build
@@ -76,12 +82,22 @@ stage2_bootloader.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEP
 	@echo 'Finished building: $@'
 	@echo ' '
 
+stage2_bootloader.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "stage2_bootloader.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+stage2_bootloader.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "stage2_bootloader.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout stage2_bootloader.elf stage2_bootloader.list stage2_bootloader.map
+	-$(RM) default.size.stdout stage2_bootloader.bin stage2_bootloader.elf stage2_bootloader.hex stage2_bootloader.list stage2_bootloader.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

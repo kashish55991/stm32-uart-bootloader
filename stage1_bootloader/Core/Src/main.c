@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -34,6 +35,14 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+const uint8_t dummy_stage2_bin[] = {
+    0x00, 0x01, 0x02, 0x03,  // test pattern
+    0x10, 0x11, 0x12, 0x13,
+    0x20, 0x21, 0x22, 0x23,
+    // Add more if you want
+};
+
+const uint32_t dummy_stage2_size = sizeof(dummy_stage2_bin);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -64,47 +73,19 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_PWR_EnableBkUpAccess();
+    RCC->BDCR |= RCC_BDCR_RTCEN;
 
-  /* USER CODE BEGIN 1 */
+    if (check_update_flag()) {
+        erase_stage2_flash();
+        copy_stage2_from_temp_flash();
+        clear_update_flag();
+    }
 
-  /* USER CODE END 1 */
+    jump_to_stage2();
 
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
-
-  /* System interrupt init*/
-  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    while (1);
 }
 
 /**
@@ -129,6 +110,14 @@ void SystemClock_Config(void)
 
   }
   LL_RCC_HSI_SetCalibTrimming(16);
+  LL_RCC_LSI_Enable();
+
+   /* Wait till LSI is ready */
+  while(LL_RCC_LSI_IsReady() != 1)
+  {
+
+  }
+  LL_PWR_EnableBkUpAccess();
   LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_1, 10, LL_RCC_PLLR_DIV_2);
   LL_RCC_PLL_EnableDomain_SYS();
   LL_RCC_PLL_Enable();

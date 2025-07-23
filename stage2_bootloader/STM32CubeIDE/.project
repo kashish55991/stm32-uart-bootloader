@@ -117,6 +117,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32L4xx_HAL_Driver/stm32l4xx_hal_rtc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32L4xx_HAL_Driver/stm32l4xx_hal_rtc_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc_ex.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32L4xx_HAL_Driver/stm32l4xx_hal_uart.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c</locationURI>
@@ -125,6 +135,11 @@
 			<name>Drivers/STM32L4xx_HAL_Driver/stm32l4xx_hal_uart_ex.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/flash_utils.c</name>
+			<type>1</type>
+			<location>C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/flash_utils.c</location>
 		</link>
 		<link>
 			<name>Application/User/Core/gpio.c</name>
@@ -137,6 +152,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/main.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/rtc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/rtc.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/Core/stm32l4xx_hal_msp.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32l4xx_hal_msp.c</locationURI>
@@ -147,9 +167,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32l4xx_it.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/update_handler.c</name>
+			<type>1</type>
+			<location>C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/update_handler.c</location>
+		</link>
+		<link>
 			<name>Application/User/Core/usart.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/usart.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/xmodem.c</name>
+			<type>1</type>
+			<location>C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c</location>
 		</link>
 	</linkedResources>
 </projectDescription>

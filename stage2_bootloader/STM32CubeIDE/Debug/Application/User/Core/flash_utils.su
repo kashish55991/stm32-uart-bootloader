@@ -1,0 +1,2 @@
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/flash_utils.c:15:6:flash_erase_region	48	static
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/flash_utils.c:41:6:flash_write	40	static

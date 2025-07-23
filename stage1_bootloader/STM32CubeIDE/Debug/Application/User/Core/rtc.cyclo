@@ -1,0 +1,6 @@
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:3648:22:LL_RCC_SetRTCClockSource	1
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:3662:26:LL_RCC_GetRTCClockSource	1
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:3672:22:LL_RCC_EnableRTC	1
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:3702:22:LL_RCC_ForceBackupDomainReset	1
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:3712:22:LL_RCC_ReleaseBackupDomainReset	1
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage1_bootloader/Core/Src/rtc.c:28:6:MX_RTC_Init	2

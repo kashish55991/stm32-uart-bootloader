@@ -53,6 +53,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 main_application.list \
 
+OBJCOPY_HEX += \
+main_application.hex \
+
+OBJCOPY_BIN += \
+main_application.bin \
+
 
 # All Target
 all: main-build
@@ -76,12 +82,22 @@ main_application.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS
 	@echo 'Finished building: $@'
 	@echo ' '
 
+main_application.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "main_application.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+main_application.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "main_application.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout main_application.elf main_application.list main_application.map
+	-$(RM) default.size.stdout main_application.bin main_application.elf main_application.hex main_application.list main_application.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

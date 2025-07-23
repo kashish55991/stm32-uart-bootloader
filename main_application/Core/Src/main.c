@@ -18,21 +18,29 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <string.h>
+#include "update_utils.h"
+#include "debug.h"
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef enum {
+    STATE_IDLE,
+    STATE_AT_MODE
+} AT_State_t;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define CMD_BUFFER_SIZE  64
 
 /* USER CODE END PD */
 
@@ -45,12 +53,22 @@
 
 /* USER CODE BEGIN PV */
 
+extern UART_HandleTypeDef huart2; // already defined in usart.c
+
+uint8_t rx_byte;
+char cmd_buffer[CMD_BUFFER_SIZE];
+uint8_t cmd_index = 0;
+AT_State_t at_state = STATE_IDLE;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void MX_GPIO_Init(void);
+void HAL_Delay(uint32_t Delay);
+void MX_USART2_UART_Init(void);
+void handle_at_command(const char *cmd);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -88,7 +106,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+
+  DBG_PRINTF("\r\n STM32 UART BOOTLADER\r\n");
 
   /* USER CODE END 2 */
 
@@ -122,9 +144,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
@@ -153,6 +176,79 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+// USART receive complete callback
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART2)
+    {
+        if (rx_byte == '\r' || rx_byte == '\n') {
+            if (cmd_index > 0) {  // Only handle if command isn't empty
+                cmd_buffer[cmd_index] = '\0';
+                handle_at_command(cmd_buffer);
+                cmd_index = 0;
+            }
+        }
+        else if (cmd_index < CMD_BUFFER_SIZE - 1) {
+            cmd_buffer[cmd_index++] = rx_byte;
+        }
+
+        HAL_UART_Receive_IT(&huart2, &rx_byte, 1);  // Restart reception
+    }
+}
+
+void handle_at_command(const char *cmd)
+{
+    switch (at_state)
+    {
+    case STATE_IDLE:
+        if (strcmp(cmd, "+++") == 0)
+        {
+            DBG_PRINTF("\r\n[AT MODE]\r\n");
+            at_state = STATE_AT_MODE;
+        }
+        return;  // <---- KEY: Don't fall into default ERROR
+
+    case STATE_AT_MODE:
+        if (strcmp(cmd, "AT") == 0)
+        {
+            DBG_PRINTF("OK\r\n");
+        }
+        else if (strcmp(cmd, "AT+BOOT") == 0)
+        {
+            DBG_PRINTF("Bootloader...\r\n");
+            set_update_flag();
+            DBG_PRINTF("Rebooting MCU now...\r\n");
+            NVIC_SystemReset();
+        }
+        else if (strcmp(cmd, "AT+EXIT") == 0)
+        {
+            DBG_PRINTF("[EXIT AT MODE]\r\n");
+            at_state = STATE_IDLE;
+        }
+        else
+        {
+            DBG_PRINTF("ERROR\r\n");
+        }
+        break;
+    }
+}
+
+
+void HAL_Delay(uint32_t Delay)
+{
+  uint32_t tickstart = HAL_GetTick();
+  uint32_t wait = Delay;
+
+  /* Add a period to guaranty minimum wait */
+  if (wait < HAL_MAX_DELAY)
+  {
+    wait += (uint32_t)uwTickFreq;
+  }
+
+  while ((HAL_GetTick() - tickstart) < wait)
+  {
+  }
+}
 
 /* USER CODE END 4 */
 

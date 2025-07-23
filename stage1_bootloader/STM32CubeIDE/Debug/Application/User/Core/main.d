@@ -18,9 +18,11 @@ Application/User/Core/main.o: \
  ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_utils.h \
  ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_pwr.h \
  ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_dma.h \
+ ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h \
  ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_usart.h \
  ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_gpio.h \
- ../../Core/Inc/usart.h ../../Core/Inc/main.h ../../Core/Inc/gpio.h
+ ../../Core/Inc/rtc.h ../../Core/Inc/main.h ../../Core/Inc/usart.h \
+ ../../Core/Inc/gpio.h
 ../../Core/Inc/main.h:
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_crs.h:
 ../../Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h:
@@ -39,8 +41,10 @@ Application/User/Core/main.o: \
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_utils.h:
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_pwr.h:
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_dma.h:
+../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h:
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_usart.h:
 ../../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_gpio.h:
-../../Core/Inc/usart.h:
+../../Core/Inc/rtc.h:
 ../../Core/Inc/main.h:
+../../Core/Inc/usart.h:
 ../../Core/Inc/gpio.h:

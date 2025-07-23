@@ -1,0 +1,5 @@
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c:37:6:xModemInit	1
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c:49:6:xModemGetHeader	3
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c:62:6:xModemReceive	24
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c:222:17:xModemCrc16Calculate	4
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/xmodem.c:234:21:xModemHandleError	2

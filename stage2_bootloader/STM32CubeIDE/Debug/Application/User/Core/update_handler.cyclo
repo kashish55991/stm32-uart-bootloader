@@ -1,0 +1,2 @@
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/update_handler.c:13:6:run_bootloader_logic	2
+C:/Kashish/Projects/STM32 UART Bootloader/stm32-uart-bootloader/stage2_bootloader/Core/Src/update_handler.c:32:6:jump_to_main_app	3
